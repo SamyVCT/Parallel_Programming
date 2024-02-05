@@ -17,7 +17,7 @@ A = np.array([[(i+j) % dim+1. for i in range(dim)] for j in range(dim)])
 # print(f"A = {A}")
 
 # Initialisation du vecteur u
-u = np.array([i+1. for i in range(dim)])
+u = np.array([i+1. for i in range(dim)]).reshape(-1, 1)
 # print(f"u = {u}")
 
 Nloc = dim//nbp
@@ -27,7 +27,7 @@ jend = (rank+1)*Nloc
 res = np.zeros((dim,1))
 
 deb = time()
-res[jstart:jend,:] = np.dot(A[jstart:jend,:], u).reshape(-1, 1)
+res[jstart:jend,:] = np.dot(A[jstart:jend,:], u)
 fin = time()
 
 print(f"Temps du calcul par le processus {rank} : {fin-deb}")
@@ -44,32 +44,33 @@ if rank == 0:
     fin = time()
     print(f"Temps de calcul du produit matrice-vecteur : {fin-deb}")
 
-    # print("calcul correct = ", np.transpose(result)==v)
+    # print("calcul correct = ", result==v)
 
 
 """
 Test avec dim = 6000
 nbp =  10
 
-Temps du calcul par le processus 6 : 0.019979000091552734
-   
-Temps du calcul par le processus 7 : 0.020400524139404297
-   
-Temps du calcul par le processus 3 : 0.009933233261108398
-   
-Temps du calcul par le processus 2 : 0.020172834396362305
-   
-Temps du calcul par le processus 9 : 0.005138874053955078
-   
-Temps du calcul par le processus 8 : 0.003542184829711914
-   
 Temps du calcul par le processus 5 : 0.0
-   
-Temps du calcul par le processus 4 : 0.019861221313476562
-   
-Temps du calcul par le processus 1 : 0.0058672428131103516
-   
-Temps du calcul par le processus 0 : 0.0040285587310791016
+ 
+Temps du calcul par le processus 1 : 0.0156707763671875
+ 
+Temps du calcul par le processus 3 : 0.01687026023864746
+ 
+Temps du calcul par le processus 2 : 0.01563572883605957
+ 
+Temps du calcul par le processus 8 : 0.017382144927978516
+ 
+Temps du calcul par le processus 9 : 0.0204927921295166
+ 
+Temps du calcul par le processus 7 : 0.015586376190185547
+ 
+Temps du calcul par le processus 6 : 0.0
+ 
+Temps du calcul par le processus 4 : 0.0
+ 
+Temps du calcul par le processus 0 : 0.0
 
-Temps de calcul du produit matrice-vecteur sans parallélisation : 0.0060787200927734375
+Temps de calcul du produit matrice-vecteur sans parallélisation : 0.01579904556274414
+
 """
