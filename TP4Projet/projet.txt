@@ -1,0 +1,13 @@
+à rendre vendredi 8 mars
+
+mpiexec -np 2 python parallel_hello_world.py
+
+
+
+courbes de speedup
+
+1 processeur affichage et 1 processeur calcul
+
+couper en deux horizontalement et envoyer une moitié à un proco (il faut envoyer la ligne centrale)
+
+couper verticalement et ça fait 4 proco (Pourquoi? vaut mieux pas couper toujours horizontalement?)
